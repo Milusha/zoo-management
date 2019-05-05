@@ -1,0 +1,285 @@
+////ZOO TABLE
+CREATE TABLE ZOO(
+ZOO_ID VARCHAR(4) PRIMARY KEY, ZO_NAME VARCHAR(20));
+///////ANIMAL TABLE
+CREATE TABLE ANIMAL(
+ANIMAL_ID INT(10) PRIMARY KEY,
+ANIMAL_NAME VARCHAR(10),
+ANIMAL_GENDER CHAR(1),
+ANIMAL_AGE NUMBER(2),
+ZOO_ID REFERENCES ZOO(ZOO_ID) ON DELETE CASCADE);
+//////FOOD TABLE
+CREATE TABLE FOOD(
+FOOD_ID INT(10) PRIMARY KEY,
+FOOD_QUANTITY VARCHAR(10),
+FOOD_TYPE VARCHAR(20),
+ANIMAL_ID REFERENCES ANIMAL(ANIMAL_ID) ON DELETE CASCADE);
+//////STAFF TABLE
+CREATE TABLE STAFF(
+S_ID NUMBER(10) PRIMARY KEY, S_NAME VARCHAR(20),
+S_AGE NUMBER(2),
+S_ADDRESS VARCHAR(50), S_SALARY NUMBER(10),
+ZOO_ID REFERENCES ZOO(ZOO_ID) ON DELETE CASCADE,
+ANIMAL_ID REFERENCES ANIMAL(ANIMAL_ID) ON DELETE CASCADE);
+///////VISITORS TABLE
+CREATE TABLE VISITORS(
+V_ID VARCHAR2(20) PRIMARY KEY,V_NAME VARCHAR(10),FEES UMBER(10),AGE INT(2));
+STATISTICS TABLE
+CREATE TABLE STATISTICS(
+STAT_ID NUMBER(10) PRIMARY KEY,
+ZOO_ID REFERENCES ZOO(ZOO_ID) ON DELETE CASCADE, V_ID REFERENCES VISITORS(V_ID) ON DELETE CASCADE, EXPENDITURE NUMBER(20),
+TOT_NO_OF_ANIMALS NUMBER(100));
+///////MOBILE TABLE
+CREATE TABLEMOBILE( S_PHNO NUMBER(20),
+S_ID REFERENCES ATFF(S_ID) ON DELETE CASCADE);
+////////INSERTION OF TUPLES///////
+//ZOO:
+INSERT INTO ZOOVALUES(1,’BANNERUGHATTA’); INSERT INTO ZOO VALUES(2,’BANDIPURA’); INSERT INTO ZOOVALUES(3,’TIGER SAFARI’); INSERT INTO ZOOVALUES(4,’KUDREMUKHA’); INSERT INTO ZOOVALUES(5,’MYSOREZOO’);
+//ANIMAL:
+INSERT INTO ANIMALVALUES(100,’CAMEL’,’F’,15,1); INSERT INTO ANIMALVALUES(101,’ELEPHANT’,’F’,20,2); INSERT INTO ANIMALVALUES(102,’HORSE’,’M’,10,3); INSERT INTO ANIMALVALUES(103,’CROCODILE’,’M’,12,4); INSERT INTO ANIMALVALUES(104,’TIGER’,’M’,17,5);
+//FOOD :
+INSERT INTO FOOD VALUES ( 123,’5KG’,’VEG’,100 ); INSERT INTO FOOD VALUES ( 124,’10KG’,’NON-VEG’,101 ); INSERT INTO FOOD VALUES ( 125,’12KG’,’NON-VEG’,102 ); INSERT INTO FOOD VALUES ( 126,’4KG’,’NON-VEG’,103 ); INSERT INTO FOOD VALUES ( 127,’6KG’,’VEG’,104 );
+//STAFF :
+INSERT INTO STAFF VALUES (201,’CHAITRA’,20,’TUMKUR’,10,000,2,100); INSERT INTO STAFF VALUES (202,’RAMESH’,30,’MYSORE’,15,000,1,101); INSERT INTO STAFF VALUES (203,’AMITA’,21,’BANGALORE’,20,000,3,102); INSERT INTO STAFF VALUES (204,’POOPY’,32,’BANGALORE’,15,000,5,103); INSERT INTO STAFF VALUES (205,’SURESH’,45,’MANGALORE’,25,000,4,104);
+//STATISTICS :
+INSERT INTO STATISTICS VALUES (1000,2,5000,50,100,501); INSERT INTO STATISTICS VALUES (1001,1,10000,10,101,502); INSERT INTO STATISTICS VALUES (1002,4,5500,20,102,503); INSERT INTO STATISTICS VALUES (1003,5,1500,30,103,504); INSERT INTO STATISTICS VALUES (1004,3,18000,15,104,505);
+//VISITORS :
+INSERT INTO VISITORS VALUES(501,’ANUSHA’,100,18);
+INSERT INTO VISITORS VALUES(502,’DHANUSH’50,6); 
+INSERT INTO VISITORS VALUES(503,’VIGNESH’,100,20); 
+INSERT INTO VISITORS VALUES(504,’SWATHI’,100,30); 
+INSERT INTO VISITORS VALUES(505,’ANIKA’,100,42);
+//////CREATION OF TRIGGERS//////
+CREATE TRIGGER
+S_TRIGGER
+BEGIN
+INSERT INTO STAFF_TR (S_ID,S_NAME,PF,INCENTIVE)VALUES(NEW.S_ID,NEW.S_NAME,NEW.S_SALARY *0.10,NEW.S_SALARY*0.10);
+END
+/////CREATION OF STORED PROCEDURES/////
+ROUTINE NAME: STAFF_DETAILS BEGIN
+SELECT S.S_ID,S.S_NAME,Z.ZOO_ID FROM
+STAFF S,ZOO Z
+WHERE Z.ZOO_ID=S.ZOO_ID; 
+END
+
+//CREATING FRONT END PAGE TO LINK ALL THE TABLES <!DOCTYPE html>//
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css"
+</head>
+<marquee><font color="white">WELCOME</font></marquee>
+<meta name="viewport" content="width=device-width, initial-scale=1"> <style>
+body
+{ background-image:url("zoo7.jpg"); background-repeat:no-repeat; background-size:120% 200%
+}
+.button {
+background-color:#CCD1D1; /* Green */ border: none;
+color: white;
+padding: 20px;
+text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin: 4px 2px; cursor: pointer;
+}
+.button4 {border-radius: 12px;} </style>
+<body>
+<center><font color="White" size="300">ZOO<br>DATABASE MANAGEMENT SYSTEM</font></center>
+<ul>
+<button class="button button4"><a color="#239B56">Animal</a></div></button><br>
+<button class="button button4"><a color="#239B56">Staff</a></div></button><br>
+<button class="button button4"><a href="visitors.html"><font color="#239B56">Visitors</a></div></button><br>
+<button class="button button4"><a href="zoo.html"><font color="#239B56">Zoo</a></div></button><br>
+</ul>
+</body>
+size="8" size="8" size="8" size="8"
+</html>
+
+CREATION OF NEXT PAGE AFTER SELECTION
+<HTML>
+<head> <title>Animal</title> </head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body
+{ background-image:url("boo2.jpg"); background-repeat:no-repeat; background-size:100% 100%;
+}
+.block {
+display: block;
+width: 20%;
+border: none; background-color: #21618C; color: white;
+padding: 14px 28px; font-size: 16px; cursor: pointer; text-align: center;
+}
+.block:hover {
+background-color: #ddd;
+color: black; }
+</style> <center> <b>
+<font color="yellow" size=4>
+SELECT ONE OF THE FOLLOWING</B><br><br><br><br><br><br><br><br> <H2>
+<A HREF="ainsert.html"/><button
+color="White" size=4><br>
+<A HREF="adelete.html"/><button
+color="white" size=4><br>
+<A HREF="asearch.html"/><button
+color="white" size=4><br>
+</h2>
+</center>
+</html>
+3.2.3 CREATION OF NEXT PAGE AFTER SELECTING INSERT
+<!DOCTYPE html> <html>
+<head>
+<title>Animal Details</title> <style type="text/css">
+h1{
+font-size: 50px;
+color: black;
+text-align: center; }
+body
+{ background-image:url("peac.jpg"); background-repeat:no-repeat; background-size:100% 100%;
+}
+.form{
+width: 200px; height: 800px;
+20
+class="block">INSERT</button></a><font class="block">DELETE</button></a><font class="block">SEARCH</button></a><font
+} input[type="text"],textarea{
+width: 300px;
+height: 20px;
+border: 1px solid black; border border-radius: 50%; margin-top: 2px; margin-bottom: 10px; box-sizing: border-box;
+} input[type="text"]:focus{
+background-color: #3F64F7; box-shadow: 0 0 0 1px; transition: 0.6s all;
+} textarea:focus{
+background-color: #4264EC;
+transition: 0.6s all; }
+label{
+color:Black;
+}
+.form{
+padding: 10px 500px;
+} input[type="submit"]{
+cursor: pointer; box-border:5px; background-color: #1938B0; color:white;
+border-color: black; }
+</style> </head>
+<body>
+<a href="mainpage.html"><font size:200%>Home</font></a> <h2><center><u>Animal</u></center></h2>
+<div class="form">
+<form action="ainsert.php" method="POST">
+<label>animal id</label>
+<input type="text" name="t1" placeholder="Enter ID"> <label>animal Name</label>
+<input type="text" name="t2" placeholder="Enter name">
+<label>animal gender</label>
+<input type="text" name="t3" placeholder="Enter animalgender"> <label> animal age</label>
+<input type="text" name="t4" placeholder="enter animal age">
+<label> zoo id</label>
+<input type="text" name="t5" placeholder="Enter zoo id">
+<input type="Submit" value="Submit"> </form>
+</div> </body> </html>
+<html>
+<body>
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="zoo_database";
+//Create connection
+$conn=new mysqli($servername,$username,$password,$dbname); //Check connection
+if($conn->connect_error)
+{
+die("Connection failed : ".$conn->connect_error);
+}
+$animal_id=$_POST['t1'];
+$animal_name=$_POST['t2'];
+$animal_gender=$_POST['t3'];
+$animal_age=$_POST['t4'];
+$zoo_id=$_POST['t5'];
+$sql="INSERT INTO Animal(animal_id,animal_name,animal_gender,animal_age,zoo_id) VALUES('$animal_id','$animal_name','$animal_gender','$animal_age','$zoo_id')"; if($conn->query($sql)==TRUE)
+{
+echo "New record created successfully"; }
+else {
+echo "Error!" . $sql . "<br>" .$conn->error; }
+$conn->close();
+?>
+<form action="ainsert.html" method="POST"> <input type="SUBMIT" value="submit" > </form>
+</body>
+</html>
+CREATION OF NEXT PAGE AFTER SELECTING DELETE
+<!DOCTYPE html> <html>
+<body>
+<a href="file:///C:/wamp/www/animal.html"><font size:200%>Home</font></a> <div class="form">
+<form action="adelete.php" method="POST">
+<label>Enter animal id</label>
+<input type="text" name="t1" placeholder="enter animal id"> <br> <input type="Submit" value="Submit">
+</form> </div> </body> </html>
+
+<?php
+$servername="localhost";
+$username="root";
+$password="";
+$dbname="zoo_database";
+//Create connection
+$conn=new mysqli($servername,$username,$password,$dbname); //Check connection
+if($conn->connect_error)
+{
+die("Connection falied : " .$conn->connect_error); }
+$animal_id=$_POST['t1'];
+//sql to delete a record
+$sql="DELETE FROM animal WHERE animal_id='$animal_id'"; if($conn->query($sql)==TRUE)
+{
+echo "Record deleted successfully"; }
+else {
+echo "Error deleting record " .$conn->error; }
+$conn->close(); ?>
+
+<html>
+<head>
+<title>ANIMAL SEARCH</title>
+</head>
+<body bgcolor="powderblue">
+<form action="asearch.php" method="post">
+<br>
+<br>
+<center><h2><u>ENTER THE ANIMAL NAME TO SEARCH</u></h2> <br><br><br>
+<font face="MS Reference Sans Serif" font size="4">
+ANIMAL NAME : <input type="text" name="t2">
+</face>
+<br><br><br>
+<input type="SUBMIT" name="SUBMIT"></center>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+</form>
+</body>
+</html>
+
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "zoo_database";
+// Create connection
+$conn =new mysqli($servername, $username, $password, $dbname);
+echo"SEARCH SUCCESSFUL"; if ($conn->connect_error) {
+die("Connection failed: " . $conn->connect_error); }
+$animal_name=$_POST['t2'];
+mysqli_select_db($conn,$dbname);
+$sql="SELECT animal_id,animal_name,animal_gender,animal_age,zoo_id FROM animal WHERE animal_name= '$animal_name'";
+$records=mysqli_query($conn,$sql);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Display </title> </head>
+<body bgcolor="LIGHTSALMON" >
+<center> <table width="300" border="3" cellpadding="3" cellspacing="5" select name="test" style="color: blue">
+<tr>
+<th>ANIMAL ID</th> <th>ANIMAL NAME</th> <th>ANIMAL GENDER</th> <th> ANIMAL AGE </th> <th>ZOO ID</th> </tr></center>
+<?php
+while ($disp=mysqli_fetch_assoc ($records)) {
+echo"<br><br>";
+echo"<b>ANIMAL DETAILS</b><br><br>"; echo"<tr>";
+echo "<td>".$disp['animal_id']."</td>";
+echo "<td>".$disp['animal_name']."</td>"; echo "<td>".$disp['animal_gender']."</td>";
+echo "<td>".$disp['animal_age']."</td>"; echo "<td>".$disp['zoo_id']."</td>"; echo"<br><br>";
+}
+?>
+</table>
+<center>
+<form action="animal.html" method="POST"> <input type="SUBMIT" value="BACK"/> </center>
+</body>
+</html>
